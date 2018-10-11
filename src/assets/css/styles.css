@@ -1,0 +1,41 @@
+body {
+	font-family: Poppins, sans-serif;
+	font-size: 14px;
+}
+h1 {
+	text-align: center;
+	text-transform: uppercase;
+}
+.wrapper {
+	max-width: 1180px;
+	width: 100%;
+	padding: 15px;
+	margin: 0 auto;
+}
+small {
+	display: block;
+}
+.select-chart {
+	text-align: right;
+}
+p {
+	margin-top: 0;
+}
+.button-wrapper {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+button {
+	border: 0;
+    background-color: #c4dcf3;
+    padding: 10px;
+    font-family: 'Poppins';
+    border-radius: 4px;
+}
+button:first-child {
+	margin-right: 10px;
+}
+.btnActive {
+	background-color: #7cb5ec;
+}
