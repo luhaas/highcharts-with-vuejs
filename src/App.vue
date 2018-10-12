@@ -1,4 +1,3 @@
-
 <script>
     import Area from './charts/Area.vue'
     import Bar from './charts/Bar.vue'
@@ -42,7 +41,6 @@
 </script>
 
 <template>
-
   <div id="app">
     <div class="select-chart">
       <p>Tipo de gráfico:</p>
@@ -55,5 +53,4 @@
       <component :is="currentView"></component>
     </keep-alive>
   </div>
-
 </template>

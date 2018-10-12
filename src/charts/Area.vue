@@ -1,9 +1,5 @@
-
 <script>
     import base from './base.vue'
-    import _ from 'lodash'
-    import Highcharts from 'highcharts'
-    import { DateConverter } from './../DateConverter'
     export default {
         extends: base,
         methods: {
@@ -12,52 +8,68 @@
                 var subtitulo = this.list.metrics.revenue_by_medium.description;
                 var intervalos = this.createIntervalos();
                 var series = this.createSeries();
-                var dataInicio = DateConverter.txtparaData(this.list.start_date);
-                var dataFim = DateConverter.txtparaData(this.list.end_date);
-                this.setup(titulo,subtitulo,dataInicio,dataFim,intervalos,series);
-            },
-            createIntervalos() {
-                var intervalos = [];
-                this.list.metrics.revenue_by_medium.data.series.forEach(function(e, v){
-                    console.log(e.name);
-                    // data no formato aaaa-mm-dd
-                    let data = e.name.split('-');
-                    console.log(data);
-                    // monta array com os dias
-                    intervalos.push(data[2]);
-                });
-                return intervalos;
-            },
-            createSeries() {
-                let arraySeries = this.list.metrics.revenue_by_medium.data.series;
-                let propriedades = Object.keys(arraySeries[0].data);
-                let series = `
-                    {
-                        "Series": [
-                        ${propriedades.map(n => `
-                            {
-                                "name": "${n}",
-                                "data": []
-                            }
-                            `).join(',')}
-                        ]
-                    }
-                `;
-                var objSeries = JSON.parse(series);
-                objSeries.Series.forEach(function(serie, e){
-                    arraySeries.forEach(function(e, v){
-                        if(e.data[serie.name]){
-                            let valueCurrency = e.data[serie.name].split(',').join('.');
-                            serie.data = serie.data.concat(valueCurrency);
-                        }
-                    });
-                });
-                return objSeries;
+                console.log(this.list.start_date);
+                var dataInicio = this.createData(this.list.start_date);
+                var dataFim = this.createData(this.list.end_date);
+                //this.setup(titulo,subtitulo,dataInicio,dataFim,intervalos,series);
+
+                // var newChartOption = { Options : { colors: ["#00cbff", "#1d6fca", "#6638a2", "#ff0087", "#ffcb64", "#ff5100","#dddddd"],
+                //     chart: {
+                //         "type": null
+                //     },
+                //     title: {        
+                //         text: this.list.metrics.revenue_by_medium.title,
+                //         align: "left"
+                //     },
+                //     subtitle: {        
+                //         text: this.list.metrics.revenue_by_medium.description,
+                //         align: "left"
+                //     },
+                //     xAxis: {
+                //         "categories": this.createIntervalos()
+                //     },
+                //     yAxis: {
+                //         title: {
+                //             text: "Receita de ${dataInicio} a ${dataFim}"
+                //         }
+                //     },
+                //     tooltip: {
+                //         formatter: function() {
+                //               return this.series.name + ' <b>R$ '+ this.y.toFixed(2).replace(".",",") + '</b>';
+                //       }
+                //     },
+                //     plotOptions: {
+                //         area: {
+                //             marker: {
+                //                 enabled: false,
+                //                 symbol: 'circle',
+                //                 radius: 2,
+                //                 states: {
+                //                     hover: {
+                //                         enabled: true
+                //                     }
+                //                 }
+                //             }
+                //         }
+                //     },
+                //     series: this.createSeries()
+                // }};
+
+                this.chartOptions.yAxis.title.text = 'teste';
+                this.chartOptions.chart.type = 'area';
+                this.chartOptions.title.text = titulo;
+                this.chartOptions.subtitle.text = subtitulo;
+                this.chartOptions.yAxis.title.text = `Receita de ${dataInicio} a ${dataFim}`;
+                this.chartOptions.xAxis.categories = intervalos;
+                this.chartOptions.series = series.Series.map(n => n);
+                //this.chartOptions = newChartOption.Options;
             },
             setup(title, subtitle, inicio, fim, categorias, series) {
-                console.log(series);
-                console.log(categorias);
+                //console.log(series);
+                //console.log(categorias);
+
                 return Highcharts.chart('container-for-area', {
+                    colors: ['#00cbff', '#1d6fca', '#6638a2', '#ff0087', '#ffcb64', '#ff5100','#dddddd'],
                     chart: {
                         type: 'area'
                     },
@@ -68,11 +80,6 @@
                     subtitle: {        
                         text: subtitle,
                         align: 'left'
-                    },
-                    legend: {
-                        layout: 'horizontal',
-                        align: 'center',
-                        verticalAlign: 'top'
                     },
                     xAxis: {
                         categories: categorias
@@ -104,10 +111,12 @@
                     series: series.Series.map(n => n)
                 });
             },
-        },
+        }
     }
 </script>
 
 <template>
-    <div id="container-for-area"></div>
+    <div class="charts">
+         <highcharts class="chart" :options="chartOptions"></highcharts>
+    </div>
 </template>
