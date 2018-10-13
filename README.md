@@ -8,7 +8,7 @@
 
 ## Acessando a página no navegador
 
-- A página deve ser carregada automaticamente após rodar o projeto. Caso isso não ocorra, basta acessar o seguinte endereço no seu navegador favorito: "localhost:3000"
+- A página deve ser carregada automaticamente após rodar o projeto. Caso isso não ocorra, basta acessar o seguinte endereço no seu navegador favorito: "localhost:8080"
 
 ---
 
