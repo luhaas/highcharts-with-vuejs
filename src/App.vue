@@ -19,14 +19,6 @@
             activate (elem) {
               this.selected = elem
             },
-            handler () {
-              var args = arguments
-              for (var arg of args) {
-                if (arg instanceof Function) {
-                  arg()
-                }
-              }
-            },
             select (elem) {
               this.currentView = elem
               this.activate(elem)
