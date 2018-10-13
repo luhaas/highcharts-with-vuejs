@@ -33,7 +33,7 @@
             }
         },
         mounted() {
-            http.get('/MOCK_DATA.json').then(response => {
+            http.get('/API.json').then(response => {
                 this.$store.commit('SET_LIST', response.data)
             })
         },

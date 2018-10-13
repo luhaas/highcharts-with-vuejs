@@ -10,10 +10,6 @@ export default new Vuex.Store({
     mutations: {
         SET_LIST(state, obj) {
             state.list = obj
-            console.log(state.list);
-        },
-        SET_FILTER(state, obj) {
-            state.filter = obj
-        },
+        }
     },
 })
